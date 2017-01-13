@@ -1,4 +1,4 @@
-//'use strict';
+'use strict';
 
 //list of cars
 //useful for ALL exercises
@@ -204,30 +204,38 @@ function calculRentalPrice(){
 
     cars.forEach(function(value){
       if (value.id == carId){
-        var time = (days_between(stringToDate(entry.pickupDate,"yyyy-mm-dd","-"),stringToDate(entry.returnDate,"yyyy-mm-dd","-"))+ 1);
+        var time = days_between(stringToDate(entry.pickupDate,"yyyy-mm-dd","-"),stringToDate(entry.returnDate,"yyyy-mm-dd","-"))+ 1;
         //console.log("The time is " , time);
-
         // Exercise 2 - Drive more, pay less
-        if (time>=1)
-          value.pricePerDay = value.pricePerDay*0.9;
-        
-        else if (time >=4)
-          value.pricePerDay = value.pricePerDay*0.7;
-
-        else if (time >=10)
-          value.pricePerDay = value.pricePerDay*0.5;
-
-
-
-
-
-        console.log("The priceperday is " , value.pricePerDay);
+        if (time>1 && time<4){
+          value.pricePerDay *= 0.9;
+        }
+        if (time >4 && time<10){
+          value.pricePerDay *= 0.7;
+        }
+        if (time >10){
+          value.pricePerDay *= 0.5;
+        }
+        //console.log("The priceperday is " , value.pricePerDay);
 
         var timeComponent= value.pricePerDay * time;
+        console.log("time",timeComponent);
+
         var distanceComponement = entry.distance*value.pricePerKm;
+        console.log(distanceComponement);
         var rentalPrice = timeComponent + distanceComponement;
         //console.log("The distance component is " , distanceComponement);
         console.log("The rental price is ", rentalPrice);
+
+        // Exercise 3 - Give me all your money
+        
+        // var commission = rentalPrice*0.70;
+        // //console.log("For the assistance :  ", );
+        // //console.log("For the drivy :  ", rentalPrice);
+        // console.log("For the insurance :  ", commission*0.5);
+        // console.log("The new rental price - comission is ", rentalPrice);
+
+
       }
     })
   })
