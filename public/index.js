@@ -1,4 +1,4 @@
-'use strict';
+//'use strict';
 
 //list of cars
 //useful for ALL exercises
@@ -165,7 +165,66 @@ var rentalModifications = [{
   'pickupDate': '2015-12-05'
 }];
 
-console.log(cars);
-console.log(rentals);
-console.log(actors);
-console.log(rentalModifications);
+// exercice 1
+function days_between(date1, date2) {
+    // The number of milliseconds in one day
+    var ONE_DAY = 1000 * 60 * 60 * 24
+
+    // Convert both dates to milliseconds
+    var date1_ms = date1.getTime()
+    var date2_ms = date2.getTime()
+
+    // Calculate the difference in milliseconds
+    var difference_ms = Math.abs(date1 - date2)
+
+    // Convert back to days and return
+    return Math.round(difference_ms/ONE_DAY)
+}
+
+function stringToDate(_date,_format,_delimiter){
+  var formatLowerCase=_format.toLowerCase();
+  var formatItems=formatLowerCase.split(_delimiter);
+  var dateItems=_date.split(_delimiter);
+  var monthIndex=formatItems.indexOf("mm");
+  var dayIndex=formatItems.indexOf("dd");
+  var yearIndex=formatItems.indexOf("yyyy");
+  var month=parseInt(dateItems[monthIndex]);
+  month-=1;
+  var formatedDate = new Date(dateItems[yearIndex],month,dateItems[dayIndex]);
+  return formatedDate;
+}
+
+var date1toTest = stringToDate('2015-12-05',"yyyy-mm-dd","-");
+var date2toTest = stringToDate('2015-12-06',"yyyy-mm-dd","-");
+console.log("test = ", days_between(date1toTest, date2toTest));
+
+function calculRentalPrice(){
+  rentals.forEach(function (entry){
+    var carId = entry.carId;
+
+    cars.forEach(function(value){
+      if (value.id == carId){
+        var time= value.pricePerDay * (days_between(stringToDate(entry.pickupDate,"yyyy-mm-dd","-"),stringToDate(entry.returnDate,"yyyy-mm-dd","-"))+ 1);
+        var component = entry.distance*value.pricePerKm;
+        var rentalPrice = time + component;
+        //console.log("The time is " , time);
+        //console.log("The component is " , component);
+        console.log("The rental price is ", rentalPrice);
+      }
+    })
+
+  })
+};
+console.log("calculrentalprice",calculRentalPrice());
+
+// exercice 2
+
+
+
+
+
+console.log("cars = ", cars);
+console.log("rentails = " , rentals);
+console.log("actors = " , actors);
+console.log("rental modifcation = ", rentalModifications);
+
