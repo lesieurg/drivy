@@ -212,7 +212,6 @@ function calculRentalPrice(){
         console.log("The rental price is ", rentalPrice);
       }
     })
-
   })
 };
 console.log("calculrentalprice",calculRentalPrice());
