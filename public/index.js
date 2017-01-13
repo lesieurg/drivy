@@ -196,7 +196,7 @@ function stringToDate(_date,_format,_delimiter){
 
 var date1toTest = stringToDate('2015-12-05',"yyyy-mm-dd","-");
 var date2toTest = stringToDate('2015-12-06',"yyyy-mm-dd","-");
-console.log("test = ", days_between(date1toTest, date2toTest));
+//console.log("test days between function = ", days_between(date1toTest, date2toTest));
 
 function calculRentalPrice(){
   rentals.forEach(function (entry){
@@ -204,11 +204,29 @@ function calculRentalPrice(){
 
     cars.forEach(function(value){
       if (value.id == carId){
-        var time= value.pricePerDay * (days_between(stringToDate(entry.pickupDate,"yyyy-mm-dd","-"),stringToDate(entry.returnDate,"yyyy-mm-dd","-"))+ 1);
-        var component = entry.distance*value.pricePerKm;
-        var rentalPrice = time + component;
+        var time = (days_between(stringToDate(entry.pickupDate,"yyyy-mm-dd","-"),stringToDate(entry.returnDate,"yyyy-mm-dd","-"))+ 1);
         //console.log("The time is " , time);
-        //console.log("The component is " , component);
+
+        // Exercise 2 - Drive more, pay less
+        if (time>=1)
+          value.pricePerDay = value.pricePerDay*0.9;
+        
+        else if (time >=4)
+          value.pricePerDay = value.pricePerDay*0.7;
+
+        else if (time >=10)
+          value.pricePerDay = value.pricePerDay*0.5;
+
+
+
+
+
+        console.log("The priceperday is " , value.pricePerDay);
+
+        var timeComponent= value.pricePerDay * time;
+        var distanceComponement = entry.distance*value.pricePerKm;
+        var rentalPrice = timeComponent + distanceComponement;
+        //console.log("The distance component is " , distanceComponement);
         console.log("The rental price is ", rentalPrice);
       }
     })
@@ -216,7 +234,6 @@ function calculRentalPrice(){
 };
 console.log("calculrentalprice",calculRentalPrice());
 
-// exercice 2
 
 
 
