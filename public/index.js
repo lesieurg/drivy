@@ -219,23 +219,24 @@ function calculRentalPrice(){
         //console.log("The priceperday is " , value.pricePerDay);
 
         var timeComponent= value.pricePerDay * time;
-        console.log("time",timeComponent);
-
         var distanceComponement = entry.distance*value.pricePerKm;
-        console.log(distanceComponement);
         var rentalPrice = timeComponent + distanceComponement;
         //console.log("The distance component is " , distanceComponement);
+        console.log("_____");
         console.log("The rental price is ", rentalPrice);
 
         // Exercise 3 - Give me all your money
         
-        // var commission = rentalPrice*0.70;
-        // //console.log("For the assistance :  ", );
-        // //console.log("For the drivy :  ", rentalPrice);
-        // console.log("For the insurance :  ", commission*0.5);
-        // console.log("The new rental price - comission is ", rentalPrice);
+        var commission = rentalPrice*0.70;
+        var insuranceComission = commission*0.5;
+        var assistanceComission = time; // 1$ / day
+        var drivyComission = commission - assistanceComission - insuranceComission;
 
-
+        console.log("Comission :  ",commission);
+        console.log("Comission for the insurance :  ",insuranceComission);
+        console.log("Comission for the assistance :  ",assistanceComission );
+        console.log("Comission for the drivy :  ", drivyComission);
+        console.log("The new rental price less comission is ", rentalPrice);
       }
     })
   })
