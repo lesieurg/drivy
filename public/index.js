@@ -198,14 +198,15 @@ var date1toTest = stringToDate('2015-12-05',"yyyy-mm-dd","-");
 var date2toTest = stringToDate('2015-12-06',"yyyy-mm-dd","-");
 //console.log("test days between function = ", days_between(date1toTest, date2toTest));
 
-function calculRentalPrice(){
-  rentals.forEach(function (entry){
+function main(){
+  rentals.forEach(function (entry){ // rentals
     var carId = entry.carId;
 
-    cars.forEach(function(value){
+    cars.forEach(function(value){ // cars
       if (value.id == carId){
         var time = days_between(stringToDate(entry.pickupDate,"yyyy-mm-dd","-"),stringToDate(entry.returnDate,"yyyy-mm-dd","-"))+ 1;
         //console.log("The time is " , time);
+
         // Exercise 2 - Drive more, pay less
         if (time>1 && time<4){
           value.pricePerDay *= 0.9;
@@ -226,30 +227,35 @@ function calculRentalPrice(){
         console.log("The rental price is ", rentalPrice);
 
         // Exercise 3 - Give me all your money
-        
         var commission = rentalPrice*0.70;
         var insuranceComission = commission*0.5;
         var assistanceComission = time; // 1$ / day
         var drivyComission = commission - assistanceComission - insuranceComission;
 
+        // Exercise 4 - The famous deductible
+        var reductionOption = 0;
+        if (entry.options.deductibleReduction){
+          console.log("Reduction option : yes");
+          var reductionOption = 4*time;
+          console.log("reduc", reductionOption);
+        }
+
         console.log("Comission :  ",commission);
         console.log("Comission for the insurance :  ",insuranceComission);
         console.log("Comission for the assistance :  ",assistanceComission );
         console.log("Comission for the drivy :  ", drivyComission);
-        console.log("The new rental price less comission is ", rentalPrice);
+        console.log("The new rental price with option and less comission is ", rentalPrice+reductionOption);
       }
     })
   })
 };
-console.log("calculrentalprice",calculRentalPrice());
 
 
 
 
-
-
-console.log("cars = ", cars);
-console.log("rentails = " , rentals);
-console.log("actors = " , actors);
-console.log("rental modifcation = ", rentalModifications);
+console.log(main());
+//console.log("cars = ", cars);
+//console.log("rentails = " , rentals);
+//console.log("actors = " , actors);
+//console.log("rental modifcation = ", rentalModifications);
 
