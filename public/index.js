@@ -242,25 +242,49 @@ function main(){
 
         // Exercise 5 - Pay the actors
 
-        // driver
-        var debitDriver = reductionOption + rentalPrice;
-        console.log("Debit for driver : ", debitDriver);
+        actors.forEach(function(actor){ // actors
+          if (actor.rentalId==entry.id){
+            for (var i=0; i<5; i++){
+              //driver
+              if (actor.payment[i].who=="driver"){
+                var debitDriver = reductionOption + rentalPrice;
+                console.log("Debit for driver : ", debitDriver);
+                actor.payment[i].amount=debitDriver;
+              }
+              
+              //owner
+              if (actor.payment[i].who=="owner"){
+                var creditOwner = rentalPrice - commission;
+                console.log("Credit for car owner : ", creditOwner);
+                actor.payment[i].amount=creditOwner;
+              }
 
-        //owner
-        var creditOwner = rentalPrice - commission;
-        console.log("Credit for car owner : ", creditOwner);
+              // insurance
+              if (actor.payment[i].who=="insurance"){
+                var creditInsurance = insuranceComission;
+                console.log("Credit for car insurance : ", creditInsurance);
+                actor.payment[i].amount=creditInsurance;
+              }
 
-        // insurance
-        var creditInsurance = insuranceComission;
-        console.log("Credit for car insurance : ", creditInsurance);
+              // // assistance
+              if (actor.payment[i].who=="assistance"){
+                var creditAssistance = assistanceComission;
+                console.log("Credit for car assistance : ", creditAssistance);
+                actor.payment[i].amount=creditAssistance;
+              }
 
-        // assistance
-        var creditAssistance = assistanceComission;
-        console.log("Credit for car assistance : ", creditAssistance);
+              // drivy 
+              if (actor.payment[i].who=="assistance"){
+                var creditDrivy = drivyComission+reductionOption;
+                console.log("Credit for drivy : ", creditDrivy);
+                actor.payment[i].amount=creditDrivy;
+              }
+            }
+          } 
+        })
 
-        // drivy 
-        var creditDrivy = drivyComission+reductionOption;
-        console.log("Credit for drivy : ", creditDrivy);
+
+        // Exercise 6 - Rental modification
 
 
         // console.log("Comission :  ",commission);
